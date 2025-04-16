@@ -1,0 +1,40 @@
+public class ConsumerRecord {
+    public static void sendEmailNotification(List<consumer__c> consumers) {
+        // List to hold all emails to be sent in a single call
+        List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
+        
+        for (consumer__c c : consumers) {
+            if (String.isNotBlank(c.email__c)) { // Check if the email field is valid
+                try {
+                    Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+                    email.setToAddresses(new List<String>{c.email__c});
+                    email.setSubject('Welcome to our company');
+                    
+                    // Personalizing the email content
+                    String body = 'Dear ' + c.Name + ',\n\n' +
+                                  'Welcome to MY RICE! You have been seen as a valuable customer to us. ' +
+                                  'Please continue your journey with us while we try to provide you with high-quality resources.\n\n' +
+                                  'We are proud to associate with valuable customers like you and look forward to collaborating with you. ' +
+                                  'Enjoy exciting discounts and product offers!\n\n' +
+                                  'Thank you for buying from us.\n\n' +
+                                  'Here are some of the products bought by other customers who also purchased items like yours:\n\n' +
+                                  '<Insert Product Recommendations>\n\n' +
+                                  'Thank you,\nMy Rice Team';
+                    
+                    email.setPlainTextBody(body);
+                    emails.add(email); // Add email to the list
+                } catch (Exception e) {
+                    // Log the exception for debugging
+                    System.debug('Error sending email to ' + c.email__c + ': ' + e.getMessage());
+                }
+            } else {
+                System.debug('Skipped consumer with missing or blank email: ' + c.Id);
+            }
+        }
+        
+        // Send all emails in a single call
+        if (!emails.isEmpty()) {
+            Messaging.sendEmail(emails);
+        }
+    }
+}

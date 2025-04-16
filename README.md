@@ -5,3 +5,6 @@
 ## Reporting and Dashboards
   - The application can generate detailed reports and analytics regarding daily how much rice sold and total income per daily, revenue generated, popular amenities, and most buyed customers.
   - Easy to understand the data to the owner, improving resource allocation, and planning future development.
+## A cross-object formula field
+  - It is a formula field that references fields from another object in Salesforce.
+  - This type of formula allows users to calculate the total amount from number of rice taken*price/kg and it displays the total amount I have to pay.

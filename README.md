@@ -11,6 +11,7 @@
   - It is a formula field that references fields from another object in Salesforce.
   - This type of formula allows users to calculate the total amount from number of rice taken*price/kg and it displays the total amount I have to pay.
 
+
 ## Validation rules
    - validation rules also include an error message to display to the user when the rule returns a value of “True” due to an invalid value.
    - In this project I gave Isblank formula.Isblank formula is used to verify whether it is blank it shows error.
